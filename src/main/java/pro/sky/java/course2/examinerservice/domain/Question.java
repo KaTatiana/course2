@@ -5,17 +5,17 @@ public class Question {
     private final String answer;
     private final int dnaCode;
 
-    public Question(String question, String answer){
+    public Question(String question, String answer) {
         this.question = question;
         this.answer = answer;
         String key = question + answer;
         this.dnaCode = key.hashCode();
     }
-    public String getQuestion(){return question;}
-    public String getAnswer(){return answer;}
+    public String getQuestion() {return question;}
+    public String getAnswer() {return answer;}
 
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         if (o == this) {
             return true;
         }
@@ -29,8 +29,8 @@ public class Question {
     }
 
     @Override
-    public int hashCode(){return dnaCode;}
+    public int hashCode() {return dnaCode;}
 
     @Override
-    public String toString(){return question + " - " + answer;}
+    public String toString() {return question + " - " + answer;}
 }

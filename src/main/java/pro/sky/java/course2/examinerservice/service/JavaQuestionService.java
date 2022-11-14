@@ -55,8 +55,7 @@ public class JavaQuestionService implements QuestionService{
     public Question getRandomQuestion() {
         int size = questions.size();
 
-        if (size > 0)
-        {
+        if (size > 0) {
             int i = 0, itemIndex = random.nextInt(size);
             for(Question object : questions) {
                 if (i++ == itemIndex) {
