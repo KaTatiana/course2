@@ -32,7 +32,7 @@ public class JavaQuestionServiceTest {
     }
 
     @ParameterizedTest
-    @MethodSource("paramsadd")
+    @MethodSource("paramsaddNegative")
     public void addNegativeTest(String question, String answer){
         assertThatExceptionOfType(AlreadyAddedException.class)
                 .isThrownBy(()->javaQuestionService.add(question, answer));
@@ -75,14 +75,26 @@ public class JavaQuestionServiceTest {
 
         assertThat(javaQuestionService.getRandomQuestion()).isIn(question1, question2);
     }
-    public static Stream<Arguments> paramsadd() {
+    @Test
+    public void getRandomQuestionsPositiveTest(){
+        Question question1 = new Question("Что такое «переменная»?","Переменная — это некий контейнер, который имеет название (или слот в памяти компьютера) для хранения разных данных");
+        Question question2 = new Question("По каким параметрам переменные различаются «переменные»?","Переменные могут быть примитивными и непримитивными.");
+
+        assertThat(javaQuestionService.getRandomQuestions(2)).isEqualTo(Set.of(question1, question2));
+    }
+    public static Stream<Arguments> paramsaddNegative() {
         return Stream.of(
                 Arguments.of("Что такое «переменная»?","Переменная — это некий контейнер, который имеет название (или слот в памяти компьютера) для хранения разных данных")
         );
     }
+    public static Stream<Arguments> paramsadd() {
+        return Stream.of(
+                Arguments.of("aЧто такое «переменная»?","Переменная — это некий контейнер, который имеет название (или слот в памяти компьютера) для хранения разных данных")
+        );
+    }
     public static Stream<Arguments> paramsremovenegative() {
         return Stream.of(
-                Arguments.of(new Question("По каким параметрам переменные различаются «переменные»?","Переменные могут быть примитивными и непримитивными."))
+                Arguments.of(new Question("aПо каким параметрам переменные различаются «переменные»?","Переменные могут быть примитивными и непримитивными."))
         );
     }
     public static Stream<Arguments> paramsremove() {

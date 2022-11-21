@@ -48,7 +48,8 @@ public class JavaQuestionService implements QuestionService{
 
     @Override
     public Collection<Question> getAll() {
-        return questions;
+
+        return new HashSet<>(questions);
     }
 
     @Override
@@ -56,14 +57,33 @@ public class JavaQuestionService implements QuestionService{
         int size = questions.size();
 
         if (size > 0) {
-            int i = 0, itemIndex = random.nextInt(size);
-            for(Question object : questions) {
-                if (i++ == itemIndex) {
-                    return object;
-                }
-            }
+            return getRandomQuestionSet(questions);
         }
 
         return null;
+    }
+
+    private Question getRandomQuestionSet(Collection<Question> questions) {
+        int size = questions.size();
+        int i = 0;
+        int itemIndex = random.nextInt(size);
+        for(Question object : questions) {
+            if (i++ == itemIndex) {
+                return object;
+            }
+        }
+        return null;
+    }
+    @Override
+    public Collection<Question> getRandomQuestions(int size) {
+        Collection<Question> questions = getAll();
+        Collection<Question> questionsNew = new HashSet<>();
+        Question question;
+        for(int i=0; i<size; i++){
+            question = getRandomQuestionSet(questions);
+            questionsNew.add(question);
+            questions.remove(question);
+        }
+        return questionsNew;
     }
 }

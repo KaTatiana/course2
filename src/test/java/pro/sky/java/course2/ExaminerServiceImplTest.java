@@ -49,7 +49,7 @@ public class ExaminerServiceImplTest {
     @ParameterizedTest
     @MethodSource("paramPositive")
     public void getQuestionsPositiveTest(int amount){
-        when(questionService.getRandomQuestion()).thenReturn(question2).thenReturn(question2).thenReturn(question1);
+        when(questionService.getRandomQuestions(2)).thenReturn(questions);
         assertThat(examinerServiceImpl.getQuestions(amount)).isEqualTo(questions);
     }
 
